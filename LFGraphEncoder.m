@@ -14,7 +14,12 @@ function W = LFGraphEncoder(lf, theta, delta, prec)
 %       W = graph weights        
 %
 %   This function generates the graph weights to be used to reconstruct the
-%   entire light field.
+%   entire light field, using the graph learning method described in [1].
+%   theta = 1/sqrt(alpha*beta)
+%   delta = sqrt(alpha/beta)
+
+% [1] Kalofolias, Vassilis, and Nathanaël Perraudin. "Large Scale Graph Learning 
+% from Smooth Signals." arXiv preprint arXiv:1710.05654 (2017).
 
 % Copyright (c) Irene Viola, Hermina Petric Maretic, Pascal Frossard, 
 % Touradj Ebrahimi. Ecole Polytechnique Federale de Lausanne (EPFL).
@@ -34,7 +39,7 @@ function W = LFGraphEncoder(lf, theta, delta, prec)
 
 % If you use this software please kindly cite
 %     I. Viola, H. Petric Maretic, P. Frossard, and T. Ebrahimi.
-%     A graph learning approach for light field image compression
+%     "A graph learning approach for light field image compression"
 %     SPIE Optics + Photonics, Aug. 2018.
 
 if nargin < 2
