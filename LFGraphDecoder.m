@@ -1,7 +1,7 @@
-function lf = LFGraphDecoder(setA, S, W, alpha)
+function lf = LFGraphDecoder(setA, S, W, gamma)
 %LFGraphDecoder Reconstruct the light field from subset A and graph weights
 %W
-%   Usage: lf = LFGraphDecoder(setA, S, W, alpha);
+%   Usage: lf = LFGraphDecoder(setA, S, W, gamma);
 %  
 %   Input parameters
 %      
@@ -13,7 +13,7 @@ function lf = LFGraphDecoder(setA, S, W, alpha)
 %       S       = sampling matrix. Equal to 1 for sampling locations and 0
 %                 otherwise
 %       W    = graph weights (as obtained from LFGraphEncoder)
-%       alpha = data fidelity parameter (default = 1e-8)
+%       gamma = data fidelity parameter (default = 1e-8)
 %
 %   Output parameters
 %       lf      = light field structure, size N-by-M-by-D
@@ -45,7 +45,7 @@ function lf = LFGraphDecoder(setA, S, W, alpha)
 %     SPIE Optics + Photonics, Aug. 2018.
 
 if nargin < 4
-    alpha = 1e-8;
+    gamma = 1e-8;
 end
 N = size(setA, 1);
 M = size(setA, 2);
@@ -57,7 +57,7 @@ G = gsp_update_weights(G, W);
 G = gsp_create_laplacian(G, 'combinatorial');
 X = reshape(setA, N*M, D);
 
-Y = (S + alpha*G.L)\X;
+Y = (S + gamma*G.L)\X;
 
 % clipping
 Y(Y>1) = 1;
